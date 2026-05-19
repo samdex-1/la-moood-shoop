@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="theme-color" content="#0b1c2d">
+<title>💠 la moood shop 💠 | متجر أواني منزلية فاخرة</title>
+
+<!-- Facebook Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '517991158551582');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=517991158551582&ev=PageView&noscript=1" /></noscript>
+<!-- End Facebook Pixel Code -->
+
+<!-- Firebase SDK (Compat Version) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+
+<style>
+:root {
+  --blue: #0b1c2d;
+  --gold: #d4af37;
+  --gold-soft: #f3dc9b;
+  --white: #fff;
+  --dark-bg: #081625;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, #081625, #0b1c2d);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+nav {
+  background: rgba(8, 22, 37, 0.95);
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.logo {
+  font-size: clamp(16px, 4vw, 20px);
+  font-weight: bold;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+  font-size: clamp(12px, 3vw, 14px);
+  cursor: pointer;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+header {
+  padding: clamp(20px, 5vw, 40px) 15px;
+  text-align: center;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.hero-content h1 {
+  font-size: clamp(20px, 6vw, 48px);
+  color: var(--gold-soft);
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: clamp(12px, 3vw, 16px);
+  color: #dfe7f1;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: clamp(10px, 2vw, 12px) clamp(15px, 3vw, 25px);
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  font-size: clamp(12px, 2.5vw, 14px);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  color: #081625;
+}
+
+.btn-gold:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+}
+
+.btn-outline:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.btn-danger {
+  background: #ff4d4d;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #ff3333;
+}
+
+.btn-edit {
+  background: #4CAF50;
+  color: white;
+  padding: 6px 12px;
+  font-size: 11px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2px;
+  transition: 0.3s;
+}
+
+.btn-edit:hover {
+  background: #45a049;
+}
+
+.btn-delete {
+  background: #ff6b6b;
+  color: white;
+  padding: 6px 12px;
+  font-size: 11px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2px;
+  transition: 0.3s;
+}
+
+.btn-delete:hover {
+  background: #ff5252;
+}
+
+section {
+  padding: clamp(20px, 4vw, 40px) 15px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(20px, 5vw, 32px);
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+@media (min-width: 600px) {
+  .products {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .products {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 15px;
+  padding: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 600px) {
+  .card img {
+    height: 150px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .card img {
+    height: 200px;
+  }
+}
+
+.card h3 {
+  font-size: clamp(14px, 3vw, 18px);
+  margin-bottom: 8px;
+  color: var(--gold-soft);
+}
+
+.price {
+  color: var(--gold);
+  font-size: clamp(14px, 3vw, 20px);
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 3000;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.modal-box {
+  background: var(--dark-bg);
+  border-radius: 20px;
+  max-width: 900px;
+  width: 100%;
+  margin: 10px auto;
+  padding: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  position: relative;
+}
+
+@media (min-width: 600px) {
+  .modal-box {
+    padding: 25px;
+  }
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  color: var(--gold);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-modal:hover {
+  color: #ff6b6b;
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+@media (min-width: 768px) {
+  .modal-grid {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 25px;
+  }
+}
+
+.modal-images {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: none;
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .modal-images {
+    max-height: none;
+  }
+}
+
+.modal-images img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.modal-images img:hover {
+  border-color: var(--gold);
+  transform: scale(1.02);
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 4000;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.lightbox-modal.active {
+  display: flex;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 32px;
+  color: var(--gold);
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.lightbox-close:hover {
+  background: rgba(212, 175, 55, 0.3);
+  color: white;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--gold);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.lightbox-nav:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+.lightbox-prev {
+  left: 15px;
+}
+
+.lightbox-next {
+  right: 15px;
+}
+
+.modal-info h2 {
+  color: var(--gold);
+  font-size: clamp(20px, 5vw, 26px);
+  margin-bottom: 12px;
+}
+
+.modal-info p {
+  color: #dfe7f1;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  font-size: clamp(12px, 2.5vw, 16px);
+}
+
+input, select, textarea {
+  width: 100% !important;
+  display: block !important;
+  padding: 10px !important;
+  margin-bottom: 12px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+  transition: 0.3s !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  outline: none !important;
+}
+
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.price-details {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+.price-details div {
+  margin: 6px 0;
+  font-weight: bold;
+  font-size: clamp(12px, 2.5vw, 16px);
+  color: var(--gold-soft);
+}
+
+.comments-section {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 20px;
+  padding: clamp(15px, 4vw, 30px);
+  margin-top: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comment-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border-right: 4px solid var(--gold);
+  transition: 0.3s;
+}
+
+.comment-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.comment-item strong {
+  color: var(--gold-soft);
+  font-size: clamp(12px, 2.5vw, 14px);
+}
+
+.comment-item p {
+  margin-top: 5px;
+  color: #ccc;
+  font-size: clamp(11px, 2vw, 14px);
+}
+
+#dashboard {
+  display: none;
+  background: #f4f7f6;
+  color: #333;
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dash-header h2 {
+  font-size: clamp(16px, 4vw, 24px);
+}
+
+.dash-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.dash-nav button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #ddd;
+  font-weight: bold;
+  font-size: clamp(11px, 2vw, 14px);
+  transition: 0.3s;
+}
+
+.dash-nav button:hover {
+  background: #ccc;
+}
+
+.dash-nav button.active {
+  background: var(--blue);
+  color: white;
+}
+
+.dash-content {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #eee;
+  text-align: right;
+  font-size: 13px;
+}
+
+th {
+  background: #f8f9fa;
+  color: #555;
+}
+
+#notification {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(212, 175, 55, 0.95);
+  color: #081625;
+  padding: 20px 40px;
+  border-radius: 50px;
+  z-index: 9999;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  text-align: center;
+  border: 2px solid white;
+}
+
+@keyframes slideInCenter {
+  from { transform: translate(-50%, -60%); opacity: 0; }
+  to { transform: translate(-50%, -50%); opacity: 1; }
+}
+
+@keyframes slideOut {
+  from { transform: translate(-50%, -50%); opacity: 1; }
+  to { transform: translate(-50%, -40%); opacity: 0; }
+}
+
+.delivery-edit-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 0.5fr;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.delivery-edit-grid input {
+  color: #333 !important;
+  background: #fff !important;
+  border: 1px solid #ccc !important;
+  margin-bottom: 0 !important;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.delivery-section {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.delivery-section h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+</style>
+</head>
+<body>
+
+<div id="notification"></div>
+
+<div id="store-view">
+  <nav>
+    <a href="#" class="logo">💠 la moood shop 💠</a>
+    <div class="nav-links">
+      <a onclick="window.scrollTo({top:0, behavior:'smooth'})">الرئيسية</a>
+      <a onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">المنتجات</a>
+      <a onclick="document.getElementById('comments-section').scrollIntoView({behavior:'smooth'})">آراء العملاء</a>
+      <a onclick="showLogin()">لوحة التحكم</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="hero-content">
+      <h1>عالم الأواني المنزلية الفاخرة</h1>
+      <p>
+        <span>✨ جودة عالمية</span>
+        <span>🚚 توصيل لجميع الولايات</span>
+        <span>💎 تصاميم حصرية</span>
+      </p>
+      <div style="margin-top: 20px;">
+        <a onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})" class="btn btn-gold">تسوق الآن</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="products-section">
+    <h2 class="section-title">أحدث المنتجات</h2>
+    <div class="products" id="products-list">
+      <div class="empty-state">
+        <div class="empty-state-icon">📦</div>
+        <p>جاري تحميل المنتجات...</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="comments-section" class="comments-section">
+    <h2 class="section-title">ماذا يقول زبائننا؟</h2>
+    <div id="comments-list">
+      <div class="empty-state">
+        <div class="empty-state-icon">💬</div>
+        <p>لا توجد تعليقات حتى الآن</p>
+      </div>
+    </div>
+    
+    <div style="margin-top: 30px; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px;">
+      <h3 style="margin-bottom: 15px; color: var(--gold);">أضف تقييمك</h3>
+      <input type="text" id="c-name" placeholder="اسمك">
+      <select id="c-stars">
+        <option>⭐⭐⭐⭐⭐</option>
+        <option>⭐⭐⭐⭐</option>
+        <option>⭐⭐⭐</option>
+        <option>⭐⭐</option>
+        <option>⭐</option>
+      </select>
+      <textarea id="c-text" placeholder="رأيك في منتجاتنا..."></textarea>
+      <button onclick="submitComment()" class="btn btn-gold" style="width: 100%;">إرسال التقييم</button>
+    </div>
+  </section>
+
+  <footer style="padding: 40px 15px; text-align: center; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(212,175,55,0.1);">
+    <p>© 2026 la moood shop - جميع الحقوق محفوظة</p>
+  </footer>
+</div>
+
+<!-- Product Details Modal -->
+<div id="productModal" class="modal">
+  <div class="modal-box">
+    <span class="close-modal" onclick="closeModal('productModal')">&times;</span>
+    <div class="modal-grid">
+      <div class="modal-images" id="m-images-container"></div>
+      <div class="modal-info">
+        <h2 id="m-title"></h2>
+        <div class="price" id="m-price" style="font-size: 24px;"></div>
+        <p id="m-desc"></p>
+        
+        <div style="background: rgba(212,175,55,0.1); padding: 15px; border-radius: 15px; border: 1px solid var(--gold);">
+          <h3 style="margin-bottom: 15px; color: var(--gold-soft);">طلب المنتج</h3>
+          <input type="text" id="o-name" placeholder="الاسم الكامل">
+          <input type="tel" id="o-phone" placeholder="رقم الهاتف">
+          <div style="display: flex; gap: 10px;">
+            <input type="number" id="o-qty" value="1" min="1" onchange="calculateTotal()" style="width: 80px !important;">
+            <select id="o-wilaya" onchange="calculateTotal()">
+              <option value="">اختر الولاية</option>
+            </select>
+          </div>
+          <select id="o-delivery" onchange="calculateTotal()">
+            <option value="">نوع التوصيل</option>
+            <option value="A Domicile">توصيل للمنزل</option>
+            <option value="Stop Desk">توصيل للمكتب (Stop Desk)</option>
+          </select>
+          
+          <div class="price-details">
+            <div id="priceProduct">سعر المنتج: 0 دج</div>
+            <div id="priceDelivery">سعر التوصيل: 0 دج</div>
+            <div id="totalPrice" style="font-size: 1.2em; color: var(--gold); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">السعر الإجمالي: 0 دج</div>
+          </div>
+          
+          <button onclick="submitOrder()" class="btn btn-gold" style="width: 100%; margin-top: 10px; font-size: 18px;">تأكيد الطلب الآن</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div id="lightboxModal" class="lightbox-modal">
+  <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="prevImage()" style="display:none;" id="prevBtn">&#10094;</button>
+    <img id="lightboxImg" class="lightbox-img" src="" alt="صورة مكبرة">
+    <button class="lightbox-nav lightbox-next" onclick="nextImage()" style="display:none;" id="nextBtn">&#10095;</button>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-box" style="max-width: 400px;">
+    <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
+    <h2 style="text-align: center; margin-bottom: 20px; color: var(--gold);">دخول المسؤول</h2>
+    <input type="password" id="adminPass" placeholder="كلمة المرور">
+    <button onclick="checkLogin()" class="btn btn-gold" style="width: 100%;">دخول</button>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+  <div class="dash-header">
+    <h2>لوحة التحكم - la moood</h2>
+    <div>
+      <button onclick="logout()" class="btn btn-danger">تسجيل الخروج</button>
+    </div>
+  </div>
+  
+  <div class="dash-nav">
+    <button id="btn-orders" onclick="switchTab('orders')">الطلبات</button>
+    <button id="btn-products" onclick="switchTab('products')">المنتجات</button>
+    <button id="btn-comments" onclick="switchTab('comments')">التعليقات</button>
+    <button id="btn-delivery" onclick="switchTab('delivery')">أسعار التوصيل</button>
+  </div>
+  
+  <div id="dash-content" class="dash-content">
+    <!-- Content will be loaded here -->
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div id="orderDetailModal" class="modal">
+  <div class="modal-box" style="max-width: 500px;">
+    <span class="close-modal" onclick="closeModal('orderDetailModal')">&times;</span>
+    <h2 style="color: var(--gold); margin-bottom: 15px;">تفاصيل الطلب</h2>
+    <div id="orderDetailContent" style="color: #eee; line-height: 2;"></div>
+    <div style="margin-top: 20px; display: flex; gap: 10px;">
+      <button class="btn btn-gold" onclick="editOrder()">تعديل</button>
+      <button class="btn btn-danger" onclick="deleteCurrentOrder()">حذف</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Order Modal -->
+<div id="editOrderModal" class="modal">
+  <div class="modal-box" style="max-width: 500px;">
+    <span class="close-modal" onclick="closeModal('editOrderModal')">&times;</span>
+    <h2 style="color: var(--gold); margin-bottom: 15px;">تعديل الطلب</h2>
+    <input type="text" id="eo-name" placeholder="الاسم">
+    <input type="tel" id="eo-phone" placeholder="الهاتف">
+    <input type="number" id="eo-qty" placeholder="الكمية">
+    <select id="eo-wilaya"></select>
+    <select id="eo-delivery">
+      <option value="A Domicile">توصيل للمنزل</option>
+      <option value="Stop Desk">توصيل للمكتب</option>
+    </select>
+    <button class="btn btn-gold" style="width: 100%;" onclick="saveOrderEdit()">حفظ التغييرات</button>
+  </div>
+</div>
+
+<!-- Product Form Modal -->
+<div id="productFormModal" class="modal">
+  <div class="modal-box" style="max-width: 600px;">
+    <span class="close-modal" onclick="closeModal('productFormModal')">&times;</span>
+    <h2 id="formTitle" style="color: var(--gold); margin-bottom: 15px;">إضافة منتج</h2>
+    <input type="text" id="p-title" placeholder="اسم المنتج">
+    <input type="number" id="p-price" placeholder="السعر (دج)">
+    <textarea id="p-desc" placeholder="وصف المنتج"></textarea>
+    <p style="margin-bottom: 10px; color: #aaa; font-size: 12px;">روابط الصور (8 كحد أقصى):</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <input type="text" id="p-img1" placeholder="رابط الصورة 1">
+      <input type="text" id="p-img2" placeholder="رابط الصورة 2">
+      <input type="text" id="p-img3" placeholder="رابط الصورة 3">
+      <input type="text" id="p-img4" placeholder="رابط الصورة 4">
+      <input type="text" id="p-img5" placeholder="رابط الصورة 5">
+      <input type="text" id="p-img6" placeholder="رابط الصورة 6">
+      <input type="text" id="p-img7" placeholder="رابط الصورة 7">
+      <input type="text" id="p-img8" placeholder="رابط الصورة 8">
+    </div>
+    <button class="btn btn-gold" style="width: 100%; margin-top: 15px;" onclick="saveProduct()">حفظ المنتج</button>
+  </div>
+</div>
+
+<!-- Add Wilaya Modal -->
+<div id="wilayaModal" class="modal">
+  <div class="modal-box" style="max-width: 400px;">
+    <span class="close-modal" onclick="closeModal('wilayaModal')">&times;</span>
+    <h2 style="color: var(--gold); margin-bottom: 15px;">إضافة ولاية جديدة</h2>
+    <input type="text" id="new-w-name" placeholder="اسم الولاية (مثال: 70-برج الغدير)">
+    <input type="number" id="new-w-home" placeholder="سعر توصيل المنزل (دج)">
+    <input type="number" id="new-w-desk" placeholder="سعر توصيل المكتب (دج)">
+    <button class="btn btn-gold" style="width: 100%;" onclick="confirmAddWilaya()">إضافة</button>
+  </div>
+</div>
+
+<!-- Edit Wilaya Modal -->
+<div id="editWilayaModal" class="modal">
+  <div class="modal-box" style="max-width: 400px;">
+    <span class="close-modal" onclick="closeModal('editWilayaModal')">&times;</span>
+    <h2 style="color: var(--gold); margin-bottom: 15px;">تعديل أسعار الولاية</h2>
+    <input type="text" id="edit-w-name" placeholder="اسم الولاية" readonly style="background: #f0f0f0 !important;">
+    <input type="number" id="edit-w-home" placeholder="سعر توصيل المنزل (دج)">
+    <input type="number" id="edit-w-desk" placeholder="سعر توصيل المكتب (دج)">
+    <button class="btn btn-gold" style="width: 100%;" onclick="confirmEditWilaya()">حفظ التعديلات</button>
+  </div>
+</div>
+
+<script>
+// ============================================
+// FIREBASE CONFIGURATION
+// ============================================
+const firebaseConfig = {
+  apiKey: "AIzaSyDFhpqUH8GH5t9H7n65haJRhnAMfCHQjNY",
+  authDomain: "la-moood-shoop.firebaseapp.com",
+  databaseURL: "https://la-moood-shoop-default-rtdb.firebaseio.com",
+  projectId: "la-moood-shoop",
+  storageBucket: "la-moood-shoop.firebasestorage.app",
+  messagingSenderId: "712989855837",
+  appId: "1:712989855837:web:e0c73bb3cc6afd7b2cfdb4",
+  measurementId: "G-H90CZXZ9H6"
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+console.log('Firebase Connected Successfully');
+
+// التحقق من اتصال Firebase
+database.ref('.info/connected').on('value', (snapshot) => {
+  if (snapshot.val() === true) {
+    console.log('✅ Firebase متصل بنجاح');
+  } else {
+    console.log('❌ Firebase غير متصل');
+  }
+});
+
+
+// ============================================
+// GLOBAL VARIABLES
+// ============================================
+let products = [];
+let orders = [];
+let comments = [];
+let deliveryFees = {};
+let currentOrderId = null;
+let currentProductId = null;
+let currentWilayaEdit = null;
+
+// ============================================
+// DEFAULT DELIVERY FEES
+// ============================================
+function getDefaultDeliveryFees() {
+  return {
+    "16-الجزائر": { "A Domicile": 500, "Stop Desk": 300 },
+    "01-أدرار": { "A Domicile": 1200, "Stop Desk": 800 },
+    "02-الشلف": { "A Domicile": 1000, "Stop Desk": 700 },
+    "03-الأغواط": { "A Domicile": 1100, "Stop Desk": 750 },
+    "04-أم البواقي": { "A Domicile": 900, "Stop Desk": 600 },
+    "05-باتنة": { "A Domicile": 950, "Stop Desk": 650 },
+    "06-بجاية": { "A Domicile": 850, "Stop Desk": 550 },
+    "07-بسكرة": { "A Domicile": 1050, "Stop Desk": 700 },
+    "08-بشار": { "A Domicile": 1300, "Stop Desk": 900 },
+    "09-البليدة": { "A Domicile": 600, "Stop Desk": 400 },
+    "10-البويرة": { "A Domicile": 700, "Stop Desk": 450 },
+    "11-تمنراست": { "A Domicile": 1500, "Stop Desk": 1000 },
+    "12-تيارت": { "A Domicile": 1000, "Stop Desk": 700 },
+    "13-تلمسان": { "A Domicile": 1100, "Stop Desk": 750 },
+    "14-الجلفة": { "A Domicile": 1000, "Stop Desk": 700 },
+    "15-جيجل": { "A Domicile": 900, "Stop Desk": 600 },
+    "17-سطيف": { "A Domicile": 950, "Stop Desk": 650 },
+    "18-سعيدة": { "A Domicile": 1050, "Stop Desk": 700 },
+    "19-سكيكدة": { "A Domicile": 950, "Stop Desk": 650 },
+    "20-سيدي بلعباس": { "A Domicile": 1100, "Stop Desk": 750 },
+    "21-قسنطينة": { "A Domicile": 900, "Stop Desk": 600 },
+    "22-قالمة": { "A Domicile": 900, "Stop Desk": 600 },
+    "23-قرقودة": { "A Domicile": 1000, "Stop Desk": 700 },
+    "24-الكاف": { "A Domicile": 950, "Stop Desk": 650 },
+    "25-خنشلة": { "A Domicile": 1000, "Stop Desk": 700 },
+    "26-الخروب": { "A Domicile": 1050, "Stop Desk": 700 },
+    "27-الدويرة": { "A Domicile": 1200, "Stop Desk": 800 },
+    "28-الدلس": { "A Domicile": 1100, "Stop Desk": 750 },
+    "29-الدرعية": { "A Domicile": 1300, "Stop Desk": 900 },
+    "30-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "31-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "32-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "33-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "34-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "35-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "36-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "37-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "38-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "39-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "40-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "41-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "42-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "43-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "44-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "45-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "46-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "47-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 },
+    "48-الدعيم": { "A Domicile": 1100, "Stop Desk": 750 }
+  };
+}
+
+// ============================================
+// INITIALIZE FIREBASE LISTENERS (REAL-TIME SYNC)
+// ============================================
+function initializeFirebaseListeners() {
+  // PRODUCTS
+  database.ref('lamoood_shop/products').on('value', (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      products = Object.entries(data || {}).map(([key, value]) => ({
+        firebaseKey: key,
+        ...value
+      }));
+    } else {
+      products = [];
+    }
+    renderProducts();
+    if (document.getElementById('dashboard').style.display === 'block' && document.getElementById('btn-products').classList.contains('active')) {
+      renderProductsTable();
+    }
+  });
+
+  // COMMENTS
+  database.ref('lamoood_shop/comments').on('value', (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      comments = Object.entries(data || {}).map(([key, value]) => ({
+        firebaseKey: key,
+        ...value
+      }));
+    } else {
+      comments = [];
+    }
+    renderComments();
+    if (document.getElementById('dashboard').style.display === 'block' && document.getElementById('btn-comments').classList.contains('active')) {
+      renderCommentsTable();
+    }
+  });
+
+  // ORDERS
+  database.ref('lamoood_shop/orders').on('value', (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      orders = Object.entries(data || {}).map(([key, value]) => ({
+        firebaseKey: key,
+        ...value
+      }));
+    } else {
+      orders = [];
+    }
+    if (document.getElementById('dashboard').style.display === 'block' && document.getElementById('btn-orders').classList.contains('active')) {
+      renderOrdersTable();
+    }
+  });
+
+  // DELIVERY FEES
+  database.ref('lamoood_shop/deliveryFees').on('value', (snapshot) => {
+    if (snapshot.exists()) {
+      deliveryFees = snapshot.val();
+    } else {
+      deliveryFees = getDefaultDeliveryFees();
+      database.ref('lamoood_shop/deliveryFees').set(deliveryFees);
+    }
+    initWilayas();
+    if (document.getElementById('dashboard').style.display === 'block' && document.getElementById('btn-delivery').classList.contains('active')) {
+      renderDeliveryTable();
+    }
+  });
+}
+
+// ============================================
+// RENDER FUNCTIONS
+// ============================================
+function renderProducts() {
+  const list = document.getElementById('products-list');
+  if (products.length === 0) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div><p>لا توجد منتجات حتى الآن</p></div>';
+    return;
+  }
+  list.innerHTML = products.map(p => `
+    <div class="card" onclick="openProductModal(${p.id})">
+      <img src="${p.imgs && p.imgs[0] ? p.imgs[0] : 'https://via.placeholder.com/200'}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/200'">
+      <h3>${p.title}</h3>
+      <div class="price">${p.price} دج</div>
+    </div>
+  `).join('');
+}
+
+function renderComments() {
+  const list = document.getElementById('comments-list');
+  if (comments.length === 0) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💬</div><p>لا توجد تعليقات حتى الآن</p></div>';
+    return;
+  }
+  list.innerHTML = comments.map(c => `
+    <div class="comment-item">
+      <strong>${c.name}</strong> <span style="color: var(--gold);">${c.stars}</span>
+      <p>${c.text}</p>
+    </div>
+  `).join('');
+}
+
+// ============================================
+// PRODUCT MODAL FUNCTIONS
+// ============================================
+function openProductModal(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  currentProductId = id;
+  document.getElementById('m-title').innerText = p.title;
+  document.getElementById('m-price').innerText = p.price + ' دج';
+  document.getElementById('m-desc').innerText = p.desc || 'وصف المنتج غير متوفر';
+  
+  // Store images for lightbox
+  currentLightboxImages = p.imgs || [];
+  
+  const imgsContainer = document.getElementById('m-images-container');
+  imgsContainer.innerHTML = (p.imgs || []).map((img, index) => `<img src="${img}" alt="صورة" onerror="this.src='https://via.placeholder.com/200'" onclick="openLightbox(${index})" style="cursor: pointer;">`).join('');
+  
+  if (!imgsContainer.innerHTML) {
+    imgsContainer.innerHTML = '<img src="https://via.placeholder.com/200" alt="صورة افتراضية" onclick="openLightbox(0)" style="cursor: pointer;">';
+  }
+  
+  document.getElementById('o-name').value = '';
+  document.getElementById('o-phone').value = '';
+  document.getElementById('o-qty').value = '1';
+  document.getElementById('o-wilaya').value = '';
+  document.getElementById('o-delivery').value = '';
+  calculateTotal();
+  
+  document.getElementById('productModal').style.display = 'block';
+}
+
+function calculateTotal() {
+  const p = products.find(x => x.id === currentProductId);
+  if (!p) return;
+  
+  const qty = parseInt(document.getElementById('o-qty').value) || 1;
+  const wilaya = document.getElementById('o-wilaya').value;
+  const type = document.getElementById('o-delivery').value;
+  
+  const productPrice = p.price * qty;
+  let deliveryPrice = 0;
+  
+  if (wilaya && type && deliveryFees[wilaya]) {
+    deliveryPrice = deliveryFees[wilaya][type] || 0;
+  }
+  
+  const total = productPrice + deliveryPrice;
+  
+  document.getElementById('priceProduct').innerText = `سعر المنتج: ${productPrice} دج`;
+  document.getElementById('priceDelivery').innerText = `سعر التوصيل: ${deliveryPrice} دج`;
+  document.getElementById('totalPrice').innerText = `السعر الإجمالي: ${total} دج`;
+}
+
+// ============================================
+// LIGHTBOX FUNCTIONS
+// ============================================
+let currentLightboxImages = [];
+let currentLightboxIndex = 0;
+
+function openLightbox(index) {
+  currentLightboxIndex = index;
+  const lightboxModal = document.getElementById('lightboxModal');
+  const lightboxImg = document.getElementById('lightboxImg');
+  
+  lightboxImg.src = currentLightboxImages[index];
+  lightboxModal.classList.add('active');
+  
+  // Show/hide navigation buttons
+  document.getElementById('prevBtn').style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
+  document.getElementById('nextBtn').style.display = currentLightboxImages.length > 1 ? 'flex' : 'none';
+}
+
+function closeLightbox() {
+  const lightboxModal = document.getElementById('lightboxModal');
+  lightboxModal.classList.remove('active');
+}
+
+function nextImage() {
+  if (currentLightboxImages.length === 0) return;
+  currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxImages.length;
+  document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
+}
+
+function prevImage() {
+  if (currentLightboxImages.length === 0) return;
+  currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxImages.length) % currentLightboxImages.length;
+  document.getElementById('lightboxImg').src = currentLightboxImages[currentLightboxIndex];
+}
+
+// Close lightbox when clicking outside the image
+document.addEventListener('DOMContentLoaded', function() {
+  const lightboxModal = document.getElementById('lightboxModal');
+  if (lightboxModal) {
+    lightboxModal.addEventListener('click', function(e) {
+      if (e.target === lightboxModal) {
+        closeLightbox();
+      }
+    });
+  }
+});
+
+function submitOrder() {
+  const name = document.getElementById('o-name').value.trim();
+  const phone = document.getElementById('o-phone').value.trim();
+  const qty = parseInt(document.getElementById('o-qty').value);
+  const wilaya = document.getElementById('o-wilaya').value;
+  const type = document.getElementById('o-delivery').value;
+  
+  if (!name || !phone || !wilaya || !type) {
+    showNotify('يرجى ملء جميع الحقول');
+    return;
+  }
+  
+  const p = products.find(x => x.id === currentProductId);
+  if (!p) return;
+  
+  const total = (p.price * qty) + parseInt(deliveryFees[wilaya][type]);
+  const order = {
+    id: Date.now(),
+    customer: name,
+    phone: phone,
+    product: p.title,
+    qty, wilaya, type, total,
+    date: new Date().toLocaleDateString('ar-DZ')
+  };
+  
+  database.ref('lamoood_shop/orders').push(order).then(() => {
+    closeModal('productModal');
+    showNotify('✅ تم الطلب بنجاح!');
+  }).catch(err => {
+    console.log(err);
+    showNotify('❌ فشل إرسال الطلب');
+  });
+}
+
+function submitComment() {
+  const name = document.getElementById('c-name').value.trim();
+  const stars = document.getElementById('c-stars').value;
+  const text = document.getElementById('c-text').value.trim();
+  
+  if (!name || !text) {
+    showNotify('يرجى ملء الحقول');
+    return;
+  }
+  
+  const comment = { id: Date.now(), name, stars, text };
+  database.ref('lamoood_shop/comments').push(comment).then(() => {
+    document.getElementById('c-name').value = '';
+    document.getElementById('c-text').value = '';
+    document.getElementById('c-stars').value = '⭐⭐⭐⭐⭐';
+    showNotify('✅ شكراً على تعليقك!');
+  }).catch(err => {
+    console.log(err);
+    showNotify('❌ فشل إرسال التعليق');
+  });
+}
+
+// ============================================
+// ADMIN FUNCTIONS
+// ============================================
+function showLogin() { document.getElementById('loginModal').style.display = 'block'; }
+function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+function checkLogin() {
+  if (document.getElementById('adminPass').value === 'Moh123123') {
+    closeModal('loginModal');
+    document.getElementById('store-view').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    switchTab('orders');
+    showNotify('✅ مرحباً بك في لوحة التحكم!');
+  } else {
+    showNotify('❌ كلمة المرور غير صحيحة');
+  }
+}
+
+function logout() {
+  document.getElementById('store-view').style.display = 'block';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('adminPass').value = '';
+  showNotify('✅ تم تسجيل الخروج');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.dash-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + tab).classList.add('active');
+  if (tab === 'orders') renderOrdersTable();
+  if (tab === 'products') renderProductsTable();
+  if (tab === 'comments') renderCommentsTable();
+  if (tab === 'delivery') renderDeliveryTable();
+}
+
+function renderOrdersTable() {
+  let h = '<table><tr><th>الاسم</th><th>الهاتف</th><th>المنتج</th><th>الولاية</th><th>السعر</th><th>الإجراءات</th></tr>';
+  if (orders.length === 0) {
+    h += '<tr><td colspan="6" style="text-align: center; color: #999;">لا توجد طلبات</td></tr>';
+  } else {
+    orders.sort((a,b) => b.id - a.id).forEach(o => {
+      h += `<tr><td>${o.customer}</td><td>${o.phone}</td><td>${o.product}</td><td>${o.wilaya}</td><td>${o.total} دج</td><td><button class="btn-edit" onclick="viewOrderDetail(${o.id})">عرض</button></td></tr>`;
+    });
+  }
+  document.getElementById('dash-content').innerHTML = h + '</table>';
+}
+
+function renderProductsTable() {
+  let h = '<button class="btn btn-gold" style="margin-bottom:15px" onclick="openAddProductModal()">+ إضافة منتج</button><table><tr><th>الاسم</th><th>السعر</th><th>الإجراءات</th></tr>';
+  if (products.length === 0) {
+    h += '<tr><td colspan="3" style="text-align: center; color: #999;">لا توجد منتجات</td></tr>';
+  } else {
+    products.forEach(p => {
+      h += `<tr><td>${p.title}</td><td>${p.price} دج</td><td><button class="btn-edit" onclick="editProduct(${p.id})">✏️ تعديل</button><button class="btn-delete" onclick="deleteProduct(${p.id})">🗑️ حذف</button></td></tr>`;
+    });
+  }
+  document.getElementById('dash-content').innerHTML = h + '</table>';
+}
+
+function renderCommentsTable() {
+  let h = '<table><tr><th>الاسم</th><th>التقييم</th><th>التعليق</th><th>الإجراءات</th></tr>';
+  if (comments.length === 0) {
+    h += '<tr><td colspan="4" style="text-align: center; color: #999;">لا توجد تعليقات</td></tr>';
+  } else {
+    comments.forEach(c => {
+      h += `<tr><td>${c.name}</td><td>${c.stars}</td><td>${c.text}</td><td><button class="btn-delete" onclick="deleteComment(${c.id})">🗑️ حذف</button></td></tr>`;
+    });
+  }
+  document.getElementById('dash-content').innerHTML = h + '</table>';
+}
+
+function renderDeliveryTable() {
+  let h = '<button class="btn btn-gold" style="margin-bottom:15px" onclick="openAddWilayaModal()">+ إضافة ولاية جديدة</button>';
+  h += '<button class="btn btn-gold" style="margin-right:10px; margin-bottom:15px;" onclick="saveDeliveryFees()">✅ حفظ التغييرات</button>';
+  h += '<div class="delivery-edit-grid" style="font-weight:bold; background:#eee; color:#333;"><div>الولاية</div><div>توصيل للمنزل</div><div>توصيل للمكتب</div><div>إجراءات</div></div>';
+  
+  if (Object.keys(deliveryFees).length === 0) {
+    h += '<div style="text-align: center; color: #999; padding: 20px;">لا توجد ولايات</div>';
+  } else {
+    Object.keys(deliveryFees).sort().forEach(w => {
+      h += `<div class="delivery-edit-grid">
+        <div><strong>${w}</strong></div>
+        <input type="number" id="input-home-${w}" value="${deliveryFees[w]['A Domicile']}" onchange="deliveryFees['${w}']['A Domicile']=parseInt(this.value)">
+        <input type="number" id="input-desk-${w}" value="${deliveryFees[w]['Stop Desk']}" onchange="deliveryFees['${w}']['Stop Desk']=parseInt(this.value)">
+        <div style="display: flex; gap: 5px;">
+          <button class="btn-edit" onclick="openEditWilayaModal('${w}')">✏️</button>
+          <button class="btn-delete" onclick="deleteWilaya('${w}')">🗑️</button>
+        </div>
+      </div>`;
+    });
+  }
+  document.getElementById('dash-content').innerHTML = h;
+}
+
+function saveDeliveryFees() {
+  database.ref('lamoood_shop/deliveryFees')
+    .set(deliveryFees)
+    .then(() => {
+      showNotify('✅ تم حفظ أسعار التوصيل بنجاح');
+      renderDeliveryTable();
+    })
+    .catch(err => {
+      console.log(err);
+      showNotify('❌ فشل الحفظ');
+    });
+}
+
+function openAddWilayaModal() { 
+  document.getElementById('new-w-name').value = '';
+  document.getElementById('new-w-home').value = '';
+  document.getElementById('new-w-desk').value = '';
+  document.getElementById('wilayaModal').style.display = 'block'; 
+}
+
+function confirmAddWilaya() {
+  const name = document.getElementById('new-w-name').value.trim();
+  const home = parseInt(document.getElementById('new-w-home').value);
+  const desk = parseInt(document.getElementById('new-w-desk').value);
+  if (!name || isNaN(home) || isNaN(desk)) return showNotify('يرجى ملء البيانات بشكل صحيح');
+  if (deliveryFees[name]) return showNotify('هذه الولاية موجودة بالفعل');
+  deliveryFees[name] = { "A Domicile": home, "Stop Desk": desk };
+  saveDeliveryFees();
+  closeModal('wilayaModal');
+}
+
+function openEditWilayaModal(wilaya) {
+  currentWilayaEdit = wilaya;
+  document.getElementById('edit-w-name').value = wilaya;
+  document.getElementById('edit-w-home').value = deliveryFees[wilaya]['A Domicile'];
+  document.getElementById('edit-w-desk').value = deliveryFees[wilaya]['Stop Desk'];
+  document.getElementById('editWilayaModal').style.display = 'block';
+}
+
+function confirmEditWilaya() {
+  const home = parseInt(document.getElementById('edit-w-home').value);
+  const desk = parseInt(document.getElementById('edit-w-desk').value);
+  if (isNaN(home) || isNaN(desk)) return showNotify('يرجى إدخال أرقام صحيحة');
+  deliveryFees[currentWilayaEdit] = { "A Domicile": home, "Stop Desk": desk };
+  saveDeliveryFees();
+  closeModal('editWilayaModal');
+}
+
+function deleteWilaya(w) {
+  if (confirm('هل تريد حذف الولاية: ' + w + '؟')) {
+    delete deliveryFees[w];
+    saveDeliveryFees();
+  }
+}
+
+function openAddProductModal() {
+  document.getElementById('formTitle').innerText = 'إضافة منتج';
+  document.getElementById('p-title').value = '';
+  document.getElementById('p-price').value = '';
+  document.getElementById('p-desc').value = '';
+  for(let i=1; i<=8; i++) document.getElementById('p-img'+i).value = '';
+  delete document.getElementById('productFormModal').dataset.editId;
+  document.getElementById('productFormModal').style.display = 'block';
+}
+
+function editProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('formTitle').innerText = 'تعديل منتج';
+  document.getElementById('p-title').value = p.title;
+  document.getElementById('p-price').value = p.price;
+  document.getElementById('p-desc').value = p.desc || '';
+  for(let i=1; i<=8; i++) document.getElementById('p-img'+i).value = (p.imgs && p.imgs[i-1]) ? p.imgs[i-1] : '';
+  document.getElementById('productFormModal').dataset.editId = id;
+  document.getElementById('productFormModal').style.display = 'block';
+}
+
+function saveProduct() {
+  const title = document.getElementById('p-title').value.trim();
+  const price = parseInt(document.getElementById('p-price').value);
+  const desc = document.getElementById('p-desc').value.trim();
+
+  const imgs = [];
+  for(let i = 1; i <= 8; i++) {
+    const val = document.getElementById('p-img' + i).value.trim();
+    if (val) imgs.push(val);
+  }
+
+  if (!title) {
+    showNotify('❌ يرجى إدخال اسم المنتج');
+    return;
+  }
+  
+  if (isNaN(price) || price <= 0) {
+    showNotify('❌ يرجى إدخال سعر صحيح');
+    return;
+  }
+  
+  if (imgs.length === 0) {
+    showNotify('❌ يرجى إضافة صورة واحدة على الأقل');
+    return;
+  }
+
+  const editId = document.getElementById('productFormModal').dataset.editId;
+
+  if (editId) {
+    const oldProduct = products.find(p => p.id == editId);
+
+    if (!oldProduct) {
+      showNotify('❌ المنتج غير موجود');
+      return;
+    }
+
+    const updatedProduct = {
+      ...oldProduct,
+      title,
+      price,
+      desc,
+      imgs
+    };
+
+    database.ref('lamoood_shop/products/' + oldProduct.firebaseKey)
+      .set(updatedProduct)
+      .then(() => {
+        closeModal('productFormModal');
+        showNotify('✅ تم تعديل المنتج بنجاح');
+        renderProductsTable();
+      })
+      .catch(err => {
+        console.error('خطأ في التعديل:', err);
+        showNotify('❌ فشل التعديل: ' + (err.message || 'خطأ غير معروف'));
+      });
+
+  } else {
+
+    const newProduct = {
+      id: Date.now(),
+      title,
+      price,
+      desc,
+      imgs
+    };
+
+    database.ref('lamoood_shop/products')
+      .push(newProduct)
+      .then(() => {
+        closeModal('productFormModal');
+
+        document.getElementById('p-title').value = '';
+        document.getElementById('p-price').value = '';
+        document.getElementById('p-desc').value = '';
+
+        for(let i = 1; i <= 8; i++) {
+          document.getElementById('p-img' + i).value = '';
+        }
+
+        showNotify('✅ تمت إضافة المنتج بنجاح');
+        renderProductsTable();
+      })
+      .catch(err => {
+        console.error('خطأ في الإضافة:', err);
+        showNotify('❌ فشل الإضافة: ' + (err.message || 'خطأ غير معروف'));
+      });
+  }
+}
+
+function deleteProduct(id) {
+  const product = products.find(p => p.id === id);
+  if (!product) return;
+
+  if (confirm('هل تريد حذف المنتج: ' + product.title + '؟')) {
+    database.ref('lamoood_shop/products/' + product.firebaseKey)
+      .remove()
+      .then(() => {
+        showNotify('✅ تم حذف المنتج');
+        renderProductsTable();
+      })
+      .catch(err => {
+        console.log(err);
+        showNotify('❌ فشل الحذف');
+      });
+  }
+}
+
+function deleteComment(id) {
+  const comment = comments.find(c => c.id === id);
+
+  if (!comment) return;
+
+  if (confirm('هل تريد حذف هذا التعليق؟')) {
+    database.ref('lamoood_shop/comments/' + comment.firebaseKey)
+      .remove()
+      .then(() => {
+        showNotify('✅ تم حذف التعليق');
+        renderCommentsTable();
+      })
+      .catch(err => {
+        console.log(err);
+        showNotify('❌ فشل الحذف');
+      });
+  }
+}
+
+function viewOrderDetail(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  currentOrderId = o.firebaseKey;
+  document.getElementById('orderDetailContent').innerHTML = `
+    <p><strong>الاسم:</strong> ${o.customer}</p>
+    <p><strong>الهاتف:</strong> ${o.phone}</p>
+    <p><strong>المنتج:</strong> ${o.product}</p>
+    <p><strong>الكمية:</strong> ${o.qty}</p>
+    <p><strong>الولاية:</strong> ${o.wilaya}</p>
+    <p><strong>نوع التوصيل:</strong> ${o.type === 'A Domicile' ? 'توصيل للمنزل' : 'توصيل للمكتب'}</p>
+    <p><strong>السعر الإجمالي:</strong> ${o.total} دج</p>
+    <p><strong>التاريخ:</strong> ${o.date}</p>
+  `;
+  document.getElementById('orderDetailModal').style.display = 'block';
+}
+
+function deleteCurrentOrder() {
+  if (confirm('هل تريد حذف هذا الطلب؟')) {
+    database.ref('lamoood_shop/orders/' + currentOrderId)
+      .remove()
+      .then(() => {
+        closeModal('orderDetailModal');
+        showNotify('✅ تم حذف الطلب');
+        renderOrdersTable();
+      })
+      .catch(err => {
+        console.log(err);
+        showNotify('❌ فشل الحذف');
+      });
+  }
+}
+
+function editOrder() {
+  const o = orders.find(x => x.firebaseKey === currentOrderId);
+  if (!o) return;
+
+  document.getElementById('eo-name').value = o.customer;
+  document.getElementById('eo-phone').value = o.phone;
+  document.getElementById('eo-qty').value = o.qty;
+  document.getElementById('eo-wilaya').value = o.wilaya;
+  document.getElementById('eo-delivery').value = o.type;
+
+  closeModal('orderDetailModal');
+  document.getElementById('editOrderModal').style.display = 'block';
+}
+
+function saveOrderEdit() {
+  const o = orders.find(x => x.firebaseKey === currentOrderId);
+  if (!o) return;
+
+  const updatedOrder = {
+    ...o,
+    customer: document.getElementById('eo-name').value.trim(),
+    phone: document.getElementById('eo-phone').value.trim(),
+    qty: parseInt(document.getElementById('eo-qty').value),
+    wilaya: document.getElementById('eo-wilaya').value,
+    type: document.getElementById('eo-delivery').value
+  };
+
+  database.ref('lamoood_shop/orders/' + o.firebaseKey)
+    .set(updatedOrder)
+    .then(() => {
+      closeModal('editOrderModal');
+      showNotify('✅ تم تعديل الطلب بنجاح');
+      renderOrdersTable();
+    })
+    .catch(err => {
+      console.log(err);
+      showNotify('❌ فشل التعديل');
+    });
+}
+
+function showNotify(msg) {
+  const n = document.getElementById('notification');
+  n.innerText = msg;
+  n.style.display = 'block';
+  n.style.animation = 'none';
+  void n.offsetWidth;
+  n.style.animation = 'slideInCenter 0.5s ease';
+  setTimeout(() => {
+    n.style.animation = 'slideOut 0.5s ease forwards';
+    setTimeout(() => n.style.display = 'none', 500);
+  }, 3000);
+}
+
+function initWilayas() {
+  const selects = [document.getElementById('o-wilaya'), document.getElementById('eo-wilaya')];
+  selects.forEach(s => {
+    if (!s) return;
+    const currentVal = s.value;
+    s.innerHTML = '<option value="">اختر الولاية</option>' + 
+      Object.keys(deliveryFees).sort().map(w => `<option value="${w}">${w}</option>`).join('');
+    s.value = currentVal;
+  });
+}
+
+window.addEventListener('load', initializeFirebaseListeners);
+
+window.addEventListener('load', seedProductsIfEmpty);
+
+function seedProductsIfEmpty() {
+  database.ref('lamoood_shop/products').once('value')
+    .then(snapshot => {
+      if (!snapshot.exists()) {
+        const sampleProducts = {
+          1: {
+            id: 1,
+            title: 'طقم أواني فاخر',
+            price: 4500,
+            desc: 'طقم أنيق للمطبخ العصري مصنوع من أفضل المواد',
+            imgs: [
+              'https://images.unsplash.com/photo-1584990347449-a90f4e497d4b?w=400',
+              'https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400'
+            ]
+          }
+        };
+
+        database.ref('lamoood_shop/products')
+          .set(sampleProducts);
+      }
+    });
+}
+
+window.onerror = function(msg, src, line) {
+  console.log('ERROR:', msg, src, line);
+};
+
+window.addEventListener('click', (e) => {
+  if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+});
+</script>
+</body>
+</html>
